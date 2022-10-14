@@ -18,8 +18,14 @@ appServer.get(
   (url = "") => url.startsWith("/public"),
   (req, res) => {
     const { url } = req;
+
     const plublicFolder = "public";
-    let urlOfFile = path.join(process.cwd(), plublicFolder, url.split("/public")[1]);
+
+    let urlOfFile = path.join(
+      __dirname,
+      plublicFolder,
+      url.split("/public")[1]
+    );
     res.sendFile(urlOfFile);
   }
 );
