@@ -1,73 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./index.css" />
-    <title>Cristalyx Test</title>
-    <link rel="stylesheet" href="./highlight/styles/atom-one-dark.min.css" />
-    <script src="./highlight/highlight.min.js"></script>
 
-    <script>
-      hljs.highlightAll();
-    </script>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/public/index.css" />
+  <title>Cristalyx Test</title>
+  <link rel="stylesheet" href="/public/highlight/styles/atom-one-dark.min.css" />
+  <script src="/public/highlight/highlight.min.js"></script>
 
-  <body>
-    <div id="root" class="name">
-      <header>
-        <nav>
-          <a href="#">Home</a>
-          <a href="#">Login</a>
-          <a href="#">Quienes Somos</a>
-        </nav>
-      </header>
+  <script>
+    hljs.highlightAll();
+  </script>
+</head>
 
-      <h1>Testing <span>Cristalyx </span> module</h1>
+<body>
+  <div id="root" class="name">
+    <header>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/login">Login</a>
+        <a href="#">Quienes Somos</a>
+      </nav>
+    </header>
 
-      <h2>
-        <span style="color: #555"> >> </span>
-        <span>Cristalyx</span>
-        is a Minimal Library
-        <span>Express-Like</span>
-        that wrap http.createserver module
-        <span style="color: #555"> << </span>
-      </h2>
+    <h1>Testing <span>Cristalyx </span> module</h1>
 
-      <h2 style="color: red"  > !!!! 🚫 Only for study 🚫!!!!</h2>
+    <h2>
+      <span style="color: #555"> >> </span>
+      <span>Cristalyx</span>
+      is a Minimal Library
+      <span>Express-Like</span>
+      that wrap http.createserver module
+      <span style="color: #555">
+        << </span>
+    </h2>
 
-      <pre>
-        <code> 
-          const path = require("path");
-          const cristalyx = require("../lib/cristalyx");
-          const { staticMiddleware } = require("../lib/staticMidleware");
+    <h2 style="color: red"> !!!! 🚫 Only for study 🚫!!!!</h2>
 
-          const PORT = 8080;
+    <pre>
+        <code>
+         const path = require("path");
+         const { cristalyx } = require("../lib");
+         const { staticMiddleware } = require("../lib/staticMidleware");
 
-          const appServer = cristalyx(__dirname);
+         const PORT = 8080;
 
-          appServer.get("/", (_req, res) => {
-            res.sendFile(path.join(__dirname, "public", "index.html"));
-          });
+         const AppServer = cristalyx(__dirname);
 
-          appServer.get("/login", (_req, res) => {
-            res.sendFile(path.join(__dirname, "public", "login.html"));
-          });
+         AppServer.get("/", (_req, res) => {
+           res.sendFile(path.join(__dirname, "public", "index.html"));
+         });
 
-          // statics in route / public
-          appServer.get(
-            (url = "") => url.startsWith("/public"),
-            staticMiddleware("public")
-          );
+         AppServer.get("/login", (_req, res) => {
+           res.sendFile(path.join(__dirname, "public", "login.html"));
+         });
 
-          appServer.listen(PORT, () => {
-            console.log("SERVER RUNNING IN PORT :  " + PORT);
-          });
+         // statics in route "/public"
+         AppServer.get(
+           (url = "") => url.startsWith("/public"),
+           staticMiddleware("public")
+         );
+
+         AppServer.listen(PORT, () => {
+           console.log("SERVER RUNNING IN: " + "http://localhost:" + PORT);
+         });
         </code>
       </pre>
 
-    </div>
+  </div>
 
-  </body>
+</body>
+
 </html>
