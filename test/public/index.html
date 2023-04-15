@@ -16,6 +16,7 @@
 </head>
 
 <body>
+
   <div id="root" class="name">
     <header>
       <nav>
@@ -37,37 +38,32 @@
         << </span>
     </h2>
 
-    <h2 style="color: red"> !!!! 🚫 Only for study 🚫!!!!</h2>
-
     <pre>
-        <code>
-         const path = require("path");
-         const { cristalyx } = require("../lib");
-         const { staticMiddleware } = require("../lib/staticMidleware");
 
-         const PORT = 8080;
+    <code>
+  const path = require("path");
+  const { cristalyx } = require("../lib");
+  const { staticFiles } = require("../lib/staticMidleware");
 
-         const AppServer = cristalyx(__dirname);
+  const PORT = 8080;
 
-         AppServer.get("/", (_req, res) => {
-           res.sendFile(path.join(__dirname, "public", "index.html"));
-         });
+  const AppServer = cristalyx(__dirname);
 
-         AppServer.get("/login", (_req, res) => {
-           res.sendFile(path.join(__dirname, "public", "login.html"));
-         });
+  AppServer.get("/", (_req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+  });
 
-         // statics in route "/public"
-         AppServer.get(
-           (url = "") => url.startsWith("/public"),
-           staticMiddleware("public")
-         );
+  AppServer.get("/login", (_req, res) => {
+    res.sendFile(path.join(__dirname, "public", "login.html"));
+  });
 
-         AppServer.listen(PORT, () => {
-           console.log("SERVER RUNNING IN: " + "http://localhost:" + PORT);
-         });
-        </code>
-      </pre>
+  // statics in route "/public"
+  AppServer.get((url = "") => url.startsWith("/public"), staticFiles("public"));
+
+  AppServer.listen(PORT, () => {
+    console.log("SERVER RUNNING IN: " + "http://localhost:" + PORT);
+  });</code>
+    </pre>
 
   </div>
 

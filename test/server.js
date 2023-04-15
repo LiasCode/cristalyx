@@ -1,5 +1,5 @@
 const path = require("path");
-const { cristalyx , staticMiddleware} = require("../lib");
+const { cristalyx, staticFiles } = require("../lib");
 
 const PORT = 8080;
 
@@ -14,10 +14,7 @@ AppServer.get("/login", (_req, res) => {
 });
 
 // statics in route "/public"
-AppServer.get(
-  (url = "") => url.startsWith("/public"),
-  staticMiddleware("public")
-);
+AppServer.get((url = "") => url.startsWith("/public"), staticFiles("public"));
 
 AppServer.listen(PORT, () => {
   console.log("SERVER RUNNING IN: " + "http://localhost:" + PORT);
