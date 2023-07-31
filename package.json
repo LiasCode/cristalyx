@@ -1,14 +1,19 @@
 {
-  "name": "express-vanilla",
+  "name": "cristalyx",
   "version": "1.0.0",
-  "description": "",
+  "description": "Cristalyx is a Minimal Library Express-Like that wrap http.createserver module",
   "main": "index.js",
   "scripts": {
     "test:start": "node ./test/server.js",
     "test:dev": "nodemon ./test/server.js --watch ."
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "express",
+    "http",
+    "server",
+    "lib"
+  ],
+  "author": "LiasCode",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.22"
