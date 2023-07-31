@@ -4,6 +4,7 @@
   "description": "Cristalyx is a Minimal Library Express-Like that wrap http.createserver module",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "test:start": "node ./test/server.js",
     "test:dev": "nodemon ./test/server.js --watch ."
   },
@@ -16,6 +17,8 @@
   "author": "LiasCode",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "@types/node": "^20.4.5",
+    "nodemon": "^2.0.22",
+    "typescript": "^5.1.6"
   }
 }

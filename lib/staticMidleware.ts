@@ -1,7 +1,7 @@
-const path = require("path");
+import path from "node:path";
 
-function staticFiles(route = "") {
-  return (req, res) => {
+export function staticFiles(route: string = "") {
+  return (req: Request, res: Response & { sendFile: (arg0: string) => {} }) => {
     const { url } = req;
 
     const plublicFolder = route;
@@ -16,4 +16,3 @@ function staticFiles(route = "") {
   };
 }
 
-module.exports = { staticFiles };
