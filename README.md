@@ -1,10 +1,11 @@
 ### 💎 Cristalyx 💎
 
 #### Cristalyx is a Minimal Library Express-Like that wrap http.createserver module
+#### 👌🏻 If you already know express, this will be very easy.
 
-#### !!! Don't use it in production or maybe 🫣...
+*!!!Don't use it in production or maybe 🫣...*
 
-#### Features:
+#### 🪶 Features:
 - routing:
   - Methods : GET | POST | PUT | DELETE
   - Custom URL parser, you can create your own functions to deal with custom URLs
