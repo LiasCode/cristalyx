@@ -1,5 +1,5 @@
 const path = require("path");
-const { cristalyx, staticFiles } = require("../lib");
+const { cristalyx, staticFiles } = require("../built");
 
 const PORT = 8080;
 
