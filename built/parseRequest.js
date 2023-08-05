@@ -17,7 +17,6 @@ function parseRequest(request, response, body) {
         response.setHeader("Content-Type", "text/plain");
         response.end(data);
     };
-    // parseando el query en la url :
     const query = {};
     let urlSplited = [];
     let queryUnparsed = "";
@@ -36,4 +35,3 @@ function parseRequest(request, response, body) {
     }
 }
 module.exports = { parseRequest };
-//# sourceMappingURL=parseRequest.js.map

@@ -14,4 +14,3 @@ function staticFiles(route = "") {
     };
 }
 exports.staticFiles = staticFiles;
-//# sourceMappingURL=staticMidleware.js.map

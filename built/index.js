@@ -8,4 +8,3 @@ const cristalyx_1 = __importDefault(require("./cristalyx"));
 exports.cristalyx = cristalyx_1.default;
 const staticMidleware_1 = require("./staticMidleware");
 Object.defineProperty(exports, "staticFiles", { enumerable: true, get: function () { return staticMidleware_1.staticFiles; } });
-//# sourceMappingURL=index.js.map
