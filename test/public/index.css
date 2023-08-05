@@ -65,9 +65,12 @@ h1 {
 h2 {
   font-size: 1rem;
   margin: 20px 0 20px 0;
+  font-style: italic;
 }
-span {
+span, span > a {
   color: gold;
+  font-weight: 500;
+  font-style: italic;
 }
 
 pre {

@@ -39,9 +39,7 @@ function cristalyx(dirname = process.cwd(), httpServerIntance = http.createServe
             });
         }
     };
-    // MERGE OBJECTS
     mergeObjects(appServer, router);
     return appServer;
 }
 module.exports = cristalyx;
-//# sourceMappingURL=cristalyx.js.map

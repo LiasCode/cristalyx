@@ -5,7 +5,6 @@ function initEvents(httpServerIntance, routes) {
         throw new Error("NO HTTP SERVER INSTANCE");
     if (!routes)
         throw new Error("NO ROUTES PROVIDED");
-    //  Evento REQUEST :
     httpServerIntance.on("request", (request, response) => {
         const body = [];
         request
@@ -16,7 +15,6 @@ function initEvents(httpServerIntance, routes) {
             parseRequest(request, response, body);
             findMatchRoutes(request, response, routes);
         });
-        // ## ERRORS
         response.on("error", (err) => {
             console.log({ err });
         });
@@ -27,16 +25,7 @@ function initEvents(httpServerIntance, routes) {
     return httpServerIntance;
 }
 function findMatchRoutes(request, response, routes) {
-    /*
-      routes = {
-        get : { route: "", listener: [() => {}] },
-        post : { route: "", listener: [() => {}] },
-        put : { route: "", listener: [() => {}] },
-        delete : { route: "", listener: [() => {}] },
-      }
-    */
     const { method, url, headers, query, body } = request;
-    // console.log({ method, url, headers, body, query, routes });
     let isExistMatchingRoute = true;
     for (let i = 0; i < routes[method].length; i++) {
         const cursorOnRoutes = routes[method][i];
@@ -52,7 +41,6 @@ function findMatchRoutes(request, response, routes) {
             isExistMatchingRoute = false;
             continue;
         }
-        // Recorrer listeners de la ruta matcheada
         const listeners = cursorOnRoutes.listener;
         const next = {
             continue: false,
@@ -90,4 +78,3 @@ function findMatchRoutes(request, response, routes) {
     }
 }
 module.exports = { initEvents };
-//# sourceMappingURL=initEvents.js.map

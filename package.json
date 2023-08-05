@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
+    "dev": "tsc --watch",
     "test:start": "node ./test/server.js",
-    "test:dev": "nodemon ./test/server.js --watch ."
+    "test:dev": "nodemon --config ./nodemon.json"
   },
   "keywords": [
     "express",
