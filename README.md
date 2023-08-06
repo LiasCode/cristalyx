@@ -1,6 +1,6 @@
 ### 💎 Cristalyx 💎
 
-#### Cristalyx is a Minimal Library Express-Like that wrap http.createserver module
+#### Cristalyx is a small Express-style library that wraps around the http.createserver module to create servers fast and easy.
 #### 👌🏻 If you already know express, this will be very easy.
 
 *!!!Don't use it in production or maybe 🫣...*
