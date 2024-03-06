@@ -13,7 +13,9 @@ export type Response = http.ServerResponse & {
 
 export type RouteListener = (req: Request, res: Response, next: () => void) => any;
 
-type Route = { route: string; listeners: RouteListener[] };
+type RouteMatcher = string | ((path: string) => boolean);
+
+type Route = { route: RouteMatcher; listeners: RouteListener[] };
 
 type RoutesStorage = {
   GET: Route[];
@@ -33,7 +35,7 @@ export const routesStorage: RoutesStorage = {
 
 export function Router() {
   return {
-    get(route: string, ...listeners: RouteListener[]) {
+    get(route: RouteMatcher, ...listeners: RouteListener[]) {
       const routeHandlerIndex = routesStorage.GET.findIndex((r) => r.route === route);
       if (routeHandlerIndex === -1) {
         routesStorage.GET.push({
@@ -44,7 +46,7 @@ export function Router() {
       }
       routesStorage.GET[routeHandlerIndex].listeners.push(...listeners);
     },
-    post(route: string, ...listeners: RouteListener[]) {
+    post(route: RouteMatcher, ...listeners: RouteListener[]) {
       const routeHandlerIndex = routesStorage.POST.findIndex((r) => r.route === route);
       if (routeHandlerIndex === -1) {
         routesStorage.POST.push({
@@ -55,7 +57,7 @@ export function Router() {
       }
       routesStorage.POST[routeHandlerIndex].listeners.push(...listeners);
     },
-    put(route: string, ...listeners: RouteListener[]) {
+    put(route: RouteMatcher, ...listeners: RouteListener[]) {
       const routeHandlerIndex = routesStorage.PUT.findIndex((r) => r.route === route);
       if (routeHandlerIndex === -1) {
         routesStorage.PUT.push({
@@ -66,7 +68,7 @@ export function Router() {
       }
       routesStorage.PUT[routeHandlerIndex].listeners.push(...listeners);
     },
-    delete(route: string, ...listeners: RouteListener[]) {
+    delete(route: RouteMatcher, ...listeners: RouteListener[]) {
       const routeHandlerIndex = routesStorage.DELETE.findIndex((r) => r.route === route);
       if (routeHandlerIndex === -1) {
         routesStorage.DELETE.push({

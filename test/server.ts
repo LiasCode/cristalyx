@@ -11,6 +11,18 @@ AppServer.listen(PORT, () => {
 
 const AppRouter = Router();
 
+AppRouter.get(
+  (path: string) => {
+    return path === "/api/matcher";
+  },
+  (req, res) => {
+    console.log("Executing Matcher");
+    res.json({
+      success: "Matcher",
+    });
+  }
+);
+
 AppRouter.get("/", (req, res, next) => {
   console.log("First Call");
   next();
