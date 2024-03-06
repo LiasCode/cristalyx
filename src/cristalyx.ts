@@ -9,7 +9,7 @@ export function Cristalyx(httpServerIntance?: http.Server) {
     httpServerIntance = http.createServer();
   }
 
-  //  Evento Request:
+  // Evento Request:
   httpServerIntance.on("request", (request, response) => {
     const body: any[] = [];
 
@@ -35,7 +35,7 @@ export function Cristalyx(httpServerIntance?: http.Server) {
         );
       });
 
-    // ## ERRORS
+    // ERRORS
     response.on("error", (err) => {
       console.error({ err });
     });
