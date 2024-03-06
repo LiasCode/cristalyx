@@ -1,75 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/public/index.css" />
-  <title>Cristalyx Test</title>
-  <link rel="stylesheet" href="/public/highlight/styles/atom-one-dark.min.css" />
-  <script src="/public/highlight/highlight.min.js"></script>
-
-  <script>
-    hljs.highlightAll();
-  </script>
-</head>
-
-<body>
-
-  <div id="root" class="name">
-    <header>
-      <nav>
-        <a href="/">Home</a>
-        <a href="/login">Login</a>
-        <a href="#">Quienes Somos</a>
-      </nav>
-    </header>
-
-    <h1>Testing <span>Cristalyx </span> module</h1>
-
-    <h2>
-      <span style="color: #555"> >> </span>
-      <span>Cristalyx</span>
-      is a Minimal Library
-      <span>
-        <a href="https://expressjs.com/" target="_blank">Express</a>
-      </span>
-      like
-      that wrap http.createserver module
-      <span style="color: #555">
-        << </span>
-    </h2>
-
-    <pre>
-
-    <code>
-  const path = require("path");
-  const { cristalyx } = require("../lib");
-  const { staticFiles } = require("../lib/staticMidleware");
-
-  const PORT = 8080;
-
-  const AppServer = cristalyx(__dirname);
-
-  AppServer.get("/", (_req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
-  });
-
-  AppServer.get("/login", (_req, res) => {
-    res.sendFile(path.join(__dirname, "public", "login.html"));
-  });
-
-  // statics in route "/public"
-  AppServer.get((url = "") => url.startsWith("/public"), staticFiles("public"));
-
-  AppServer.listen(PORT, () => {
-    console.log("SERVER RUNNING IN: " + "http://localhost:" + PORT);
-  });</code>
-    </pre>
-
-  </div>
-
-</body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Hola Mundo</h1>
+  </body>
 </html>
