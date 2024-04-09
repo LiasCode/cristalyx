@@ -22,6 +22,7 @@ type RoutesStorage = {
   POST: Route[];
   PUT: Route[];
   DELETE: Route[];
+  MIDDLEWARES: Route[];
 };
 
 export type Method = "GET" | "POST" | "PUT" | "DELETE";
@@ -31,9 +32,18 @@ export const routesStorage: RoutesStorage = {
   POST: [],
   PUT: [],
   DELETE: [],
+  MIDDLEWARES: [],
 };
 
-export function Router() {
+export type CristalyxRouter = {
+  get(route: RouteMatcher, ...listeners: RouteListener[]): void;
+  post(route: RouteMatcher, ...listeners: RouteListener[]): void;
+  put(route: RouteMatcher, ...listeners: RouteListener[]): void;
+  delete(route: RouteMatcher, ...listeners: RouteListener[]): void;
+  use(route: RouteMatcher, ...listeners: RouteListener[]): void;
+};
+
+export function Router(): CristalyxRouter {
   return {
     get(route: RouteMatcher, ...listeners: RouteListener[]) {
       const routeHandlerIndex = routesStorage.GET.findIndex((r) => r.route === route);
@@ -78,6 +88,17 @@ export function Router() {
         return;
       }
       routesStorage.DELETE[routeHandlerIndex].listeners.push(...listeners);
+    },
+    use(route: RouteMatcher, ...listeners: RouteListener[]) {
+      const routeHandlerIndex = routesStorage.MIDDLEWARES.findIndex((r) => r.route === route);
+      if (routeHandlerIndex === -1) {
+        routesStorage.MIDDLEWARES.push({
+          route,
+          listeners,
+        });
+        return;
+      }
+      routesStorage.MIDDLEWARES[routeHandlerIndex].listeners.push(...listeners);
     },
   };
 }

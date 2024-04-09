@@ -1,16 +1,16 @@
 {
   "name": "cristalyx",
   "version": "1.0.0",
-  "description": "Cristalyx is a Minimal Library Express-Like that wrap http.createserver module",
+  "description": "Cristalyx is a minimal and fast library that wrap http.createserver module for web server creation",
   "main": "index.js",
   "scripts": {
-    "build": "tsc -p ./tsconfig.json",
+    "build:lib": "tsc -p ./tsconfig.json",
     "test:dev": "ts-node-dev --watch ./src  --clear --ignore-watch node_modules ./test/server.ts",
-    "format": "prettier --write 'src/**/*.{js,ts,json}' --config .prettierrc.json",
+    "test:start": "node ./dist/test/server.js",
+    "format": "prettier --write '{lib,test}/**/*.{js,ts,json}' --config .prettierrc.json",
     "check-types": "tsc --noEmit -p ./tsconfig.json"
   },
   "keywords": [
-    "express",
     "http",
     "server",
     "lib"
@@ -18,13 +18,15 @@
   "author": "LiasCode",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^20.11.0",
+    "@types/node": "^20.12.6",
     "prettier": "3.2.5",
     "ts-node": "10.9.2",
     "ts-node-dev": "2.0.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.4"
   },
   "dependencies": {
+    "@types/polka": "0.5.7",
+    "polka": "0.5.2",
     "zod": "3.22.4"
   }
 }

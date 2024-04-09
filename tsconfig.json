@@ -6,28 +6,26 @@
 
     /* Modules */
     "module": "CommonJS",
-    "rootDir": "src",
-    "baseUrl": "./",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-
-    /* JavaScript Support */
-    "allowJs": true,
 
     /* Emit */
     "declaration": true,
 
     /* Specify a file that bundles all outputs into one JavaScript file. If 'declaration' is true, also designates a file that bundles all .d.ts output. */
     "outDir": "./dist",
-    "removeComments": true,
+    "removeComments": false,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
 
     /* Type Checking */
     "strict": true,
     "skipLibCheck": true
   },
   "exclude": ["node_modules"],
-  "include": ["src"]
+  "include": ["lib"]
 }
