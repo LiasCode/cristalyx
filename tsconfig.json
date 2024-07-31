@@ -1,18 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    /* Language and Environment */
-    "target": "ESNext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "target": "ESNext",
 
-    /* Modules */
     "module": "CommonJS",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
 
-    /* Emit */
     "declaration": true,
 
-    /* Specify a file that bundles all outputs into one JavaScript file. If 'declaration' is true, also designates a file that bundles all .d.ts output. */
     "outDir": "./dist",
     "removeComments": false,
     "allowSyntheticDefaultImports": true,
@@ -22,7 +18,6 @@
     "noImplicitAny": true,
     "noUnusedLocals": true,
 
-    /* Type Checking */
     "strict": true,
     "skipLibCheck": true
   },

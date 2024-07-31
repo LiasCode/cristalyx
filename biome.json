@@ -20,6 +20,6 @@
     }
   },
   "files": {
-    "include": ["./lib/**/*"]
+    "include": ["./lib/**/*", "./test/**/*"]
   }
 }
