@@ -1,4 +1,4 @@
-import http from "node:http";
+import type http from "node:http";
 
 export type Request = http.IncomingMessage & {
   body: any;

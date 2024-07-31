@@ -7,7 +7,8 @@
     "build:lib": "tsc -p ./tsconfig.json",
     "test:dev": "ts-node-dev --watch ./src  --clear --ignore-watch node_modules ./test/server.ts",
     "test:start": "NODE_ENV=production ts-node ./test/server.ts",
-    "format": "prettier --write '{lib,test}/**/*.{js,ts,json}' --config .prettierrc.json",
+    "format": "biome format --write",
+    "lint": "biome lint --write && biome check --write",
     "check-types": "tsc --noEmit -p ./tsconfig.json"
   },
   "keywords": [
@@ -18,8 +19,8 @@
   "author": "LiasCode",
   "license": "ISC",
   "devDependencies": {
+    "@biomejs/biome": "1.8.3",
     "@types/node": "^20.12.11",
-    "prettier": "3.2.5",
     "ts-node": "10.9.2",
     "ts-node-dev": "2.0.0",
     "typescript": "^5.4.5"
