@@ -6,16 +6,16 @@ const PORT = 3000;
 const server = Cristalyx();
 
 server.listen(PORT, () => {
-  console.log("Server listen on http://localhost:" + PORT);
+  console.log(`Server listen on http://localhost:${PORT}`);
 });
 
 // Global Middleware
 server.use(
   () => true,
-  (req, res, next) => {
+  (req, _res, next) => {
     console.log(`${req.method} ${req.url}`);
     next();
-  }
+  },
 );
 
 server.get("/", (_, res) => {
@@ -41,5 +41,5 @@ server.post(
     res.json({
       ok: true,
     });
-  }
+  },
 );
