@@ -18,7 +18,7 @@ server.use(
   }
 );
 
-server.get("/", (req, res) => {
+server.get("/", (_, res) => {
   res.sendFile(path.join(process.cwd(), "test", "public", "index.html"));
 });
 

@@ -1,4 +1,4 @@
-import { Method, RouteListener, routesStorage } from "./router";
+import { type Method, type RouteListener, routesStorage } from "./router";
 
 export function findHandlers(routePath: string, method: Method): RouteListener[] | null {
   if (!routesStorage[method]) return null;

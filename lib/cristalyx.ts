@@ -1,6 +1,6 @@
 import http from "node:http";
 import fs from "node:fs";
-import { CristalyxRouter, Method, Router } from "./router";
+import { type CristalyxRouter, type Method, Router } from "./router";
 import { findHandlers } from "./findHandlers";
 import { execHandlers } from "./execHandlers";
 
@@ -9,9 +9,11 @@ import { execHandlers } from "./execHandlers";
  * @param httpServerIntance
  * @returns
  */
-export function Cristalyx(httpServerIntance?: http.Server): http.Server & CristalyxRouter {
+export function Cristalyx(
+  httpServerIntance: http.Server = http.createServer(),
+): http.Server & CristalyxRouter {
   if (!httpServerIntance) {
-    httpServerIntance = http.createServer();
+    throw new Error("httpServerIntance is required");
   }
 
   // Evento Request:
@@ -25,7 +27,9 @@ export function Cristalyx(httpServerIntance?: http.Server): http.Server & Crista
 
         const methodParsed: Method = request.method as Method;
 
-        const handlers = findHandlers(request.url!, methodParsed);
+        const urlParsed = new URL(`http://${process.env.HOST ?? "localhost"}${request.url}`);
+
+        const handlers = findHandlers(urlParsed.pathname, methodParsed);
 
         if (!handlers) {
           response.statusCode = 404;
@@ -36,7 +40,7 @@ export function Cristalyx(httpServerIntance?: http.Server): http.Server & Crista
         execHandlers(
           handlers,
           Object.assign(request, { body: requestBodyData }),
-          parseResponse(response)
+          parseResponse(response),
         );
       });
 
