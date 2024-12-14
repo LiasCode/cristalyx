@@ -6,7 +6,7 @@ export function findHandlers(routePath: string, method: Method): RouteListener[]
   let routeListeners: RouteListener[] = [];
 
   // Search Middlewares
-  for (const routeItem of routesStorage["MIDDLEWARES"]) {
+  for (const routeItem of routesStorage.MIDDLEWARES) {
     if (typeof routeItem.route === "string") {
       if (routeItem.route === routePath) {
         middlewares = routeItem.listeners;

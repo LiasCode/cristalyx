@@ -1,8 +1,8 @@
-import http from "node:http";
 import fs from "node:fs";
-import { type CristalyxRouter, type Method, Router } from "./router";
-import { findHandlers } from "./findHandlers";
+import http from "node:http";
 import { execHandlers } from "./execHandlers";
+import { findHandlers } from "./findHandlers";
+import { type CristalyxRouter, type Method, Router } from "./router";
 
 /**
  * Create a Cristalyx Server App
