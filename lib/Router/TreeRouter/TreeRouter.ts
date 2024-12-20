@@ -1,17 +1,11 @@
-export class TreeRouter {
-  private routes: Record<string, TreeNode> = {};
-  public methods: string[] = [
-    "GET",
-    "POST",
-    "PUT",
-    "DELETE",
-    "PATCH",
-    "OPTIONS",
-    "HEAD",
-    "ALL",
-  ];
+import type { Method } from "../handler";
+import type { Router } from "../router";
 
-  constructor(methods?: string[]) {
+export class TreeRouter<RouteHandler> implements Router<RouteHandler> {
+  private routes: Record<string, TreeNode<RouteHandler>> = {};
+  public methods: Method[] = ["ALL"];
+
+  constructor(methods?: Method[]) {
     if (methods) {
       this.methods = methods;
     }
@@ -20,31 +14,29 @@ export class TreeRouter {
     }
   }
 
-  add(method: string, path: string, ...handlers: TreeNodeHandler[]): void {
+  add(method: string, path: string, ...handlers: RouteHandler[]): void {
     const path_steps = [
       "/",
-      ...new URL(path, "http://base.com").pathname
-        .split("/")
-        .filter((p) => p !== ""),
+      ...new URL(path, "http://base.com").pathname.split("/").filter((p) => p !== ""),
     ];
 
     if (!this.routes[method]) {
-      throw new Error(`method ${method} not supported`);
+      throw new Error(`[TreeRouter:add] method ${method} not supported, add it to the constructor`);
     }
 
     this.insert(path_steps, this.routes[method], handlers);
   }
 
-  match(method: string, path: string): TreeNodeHandler[] {
+  match(method: string, path: string): RouteHandler[] {
     const path_steps = [
       "/",
-      ...new URL(path, "http://base.com").pathname
-        .split("/")
-        .filter((p) => p !== ""),
+      ...new URL(path, "http://base.com").pathname.split("/").filter((p) => p !== ""),
     ];
 
     if (!this.routes[method]) {
-      throw new Error(`method ${method} not supported`);
+      throw new Error(
+        `[TreeRouter:match] method ${method} not supported, add it to the constructor`,
+      );
     }
 
     return this.find_node_handlers(path_steps, this.routes[method]);
@@ -62,12 +54,12 @@ export class TreeRouter {
 
   private find_node_handlers(
     path_steps: string[],
-    start_node: TreeNode
-  ): TreeNodeHandler[] {
+    start_node: TreeNode<RouteHandler>,
+  ): RouteHandler[] {
     if (path_steps.length === 0) throw new Error("path_steps can't be empty'");
 
-    let current_node: TreeNode = start_node;
-    const handlers: TreeNodeHandler[] = [...current_node.value.handlers];
+    let current_node: TreeNode<RouteHandler> = start_node;
+    const handlers: RouteHandler[] = [...current_node.value.handlers];
 
     for (const p of path_steps) {
       for (const n of current_node.children) {
@@ -84,8 +76,8 @@ export class TreeRouter {
 
   private insert(
     path_steps: string[],
-    current_node: TreeNode,
-    handlers: TreeNodeHandler[]
+    current_node: TreeNode<RouteHandler>,
+    handlers: RouteHandler[],
   ): void {
     if (path_steps.length === 0) throw new Error("path_steps can't be empty'");
 
@@ -110,7 +102,7 @@ export class TreeRouter {
       });
     }
 
-    let next_node: TreeNode | null = null;
+    let next_node: TreeNode<RouteHandler> | null = null;
 
     for (const n of current_node.children) {
       if (n.value.key === next_steps[0]) {
@@ -138,15 +130,12 @@ export class TreeRouter {
   }
 }
 
-export type TreeNode = {
-  value: TreeNodeValue;
-  children: TreeNode[];
+export type TreeNode<T> = {
+  value: TreeNodeValue<T>;
+  children: TreeNode<T>[];
 };
 
-export type TreeNodeValue = {
+export type TreeNodeValue<T> = {
   key: string;
-  handlers: TreeNodeHandler[];
+  handlers: T[];
 };
-
-export type TreeNodeHandler = string;
-
