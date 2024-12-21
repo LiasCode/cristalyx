@@ -1,22 +1,27 @@
 import path from "node:path";
-import { Cristalyx } from "../lib";
+import { Cristalyx, LinearRouter, TreeRouter } from "../lib";
+import http from "node:http";
+import type { RouteHandlerFunction } from "../lib/Router";
 
 const PORT = 3000;
 
-const server = Cristalyx();
+const treeRouter = new TreeRouter<RouteHandlerFunction>(["GET", "POST"]);
+const linearRouter = new LinearRouter<RouteHandlerFunction>(["GET", "POST"]);
+
+const server = Cristalyx(http.createServer(), linearRouter);
 
 server.listen(PORT, () => {
   console.log(`Server listen on http://localhost:${PORT}`);
 });
 
 // Global Middleware
-server.use(
-  () => true,
-  (req, _res, next) => {
-    console.log(`${req.method} ${req.url}`);
-    next();
-  },
-);
+// server.use(
+//   () => true,
+//   (req, _res, next) => {
+//     console.log(`${req.method} ${req.url}`);
+//     next();
+//   },
+// );
 
 server.get("/", (_, res) => {
   res.sendFile(path.join(process.cwd(), "test", "public", "index.html"));
@@ -25,6 +30,12 @@ server.get("/", (_, res) => {
 server.get("/health", (_, res) => {
   res.json({
     ok: true,
+  });
+});
+
+server.get("/api/user/id", (_, res) => {
+  res.json({
+    user_id: 1,
   });
 });
 
@@ -43,3 +54,5 @@ server.post(
     });
   },
 );
+
+// console.log(treeRouter.toString());
