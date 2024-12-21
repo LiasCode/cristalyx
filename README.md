@@ -1,26 +1,25 @@
 ### Cristalyx
 
-`Cristalyx` es una librería que envuelve el módulo `http.createserver` para crear servidores de forma rápida y sencilla.
+`Cristalyx` es una pequeña librería para crear servidores http eficientes y sencillos.
 
-Inspirada en [`Express`](https://expressjs.com/)
-
-<h5>DISCLAIMER</h5>
+##### DISCLAIMER
 
 > - Esta librería solo tiene el fin de estudiar y profundizar en el funcionamiento de frameworks de servidores web
-> - No pretende ser sustitución y mucho menos usada en produccion.
+> - No pretende ser sustitución y menos aún usada en produccion.
 > - Las características, funcionalidades y diseño de la api podrán cambiar libremente y sin retrocompatibilidad.
 > - Se irán añadiendo funcionalidades, siempre con el objetivo de que tenga una api sencilla y se mantenga el rendimiento
 
-#### Características:
+#### Objetivos:
 
-- Api similar a la de express
-  - Enrutador
-  - Middlewares
-- Totalmente tipado con Typescript
-- Permite personalizar el Matcher de las rutas, con funciones creadas a gusto del desarrollador
+- Api sencilla similar a express
+- Totalmente tipado con `Typescript`
+- Permitir seleccionar entre distintos tipos de enrutadores como: `TreeRouter` y `LinearRouter`
+- Añadir funcionalidades manteniendo el rendimiento
 
 #### Ruta de desarrollo
 
+- [X] Implementar enrutador `TreeRouter`
+- [X] Implementar enrutador `LinearRouter`
 - [ ] Enrutador modular
 - [ ] Integrar un validador de schemas para las request
 - [ ] Integrar middleware para servir archivos estáticos
