@@ -1,8 +1,7 @@
-import type { Request, Response, RouteListener } from "./router";
+import type { Request, Response, RouteHandlerFunction } from "./Router/handler";
 
-export function execHandlers(handlers: RouteListener[], req: Request, res: Response) {
+export function execHandlers(handlers: RouteHandlerFunction[], req: Request, res: Response) {
   let next = false;
-
   for (let i = 0; i < handlers.length; i++) {
     const handler = handlers[i];
 
@@ -12,6 +11,6 @@ export function execHandlers(handlers: RouteListener[], req: Request, res: Respo
       next = true;
     });
 
-    if (!next) break;
+    if (next === false) break;
   }
 }

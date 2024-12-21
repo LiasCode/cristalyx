@@ -1,17 +1,13 @@
 import fs from "node:fs";
-import http from "node:http";
+import type { IncomingMessage, Server, ServerResponse } from "node:http";
 import { execHandlers } from "./execHandlers";
-import { findHandlers } from "./findHandlers";
-import { type CristalyxRouter, type Method, Router } from "./router";
+import type { Method, RouteHandlerFunction } from "./Router/handler";
+import type { Router } from "./Router/router";
 
-/**
- * Create a Cristalyx Server App
- * @param httpServerIntance
- * @returns
- */
 export function Cristalyx(
-  httpServerIntance: http.Server = http.createServer(),
-): http.Server & CristalyxRouter {
+  httpServerIntance: Server,
+  router: Router<RouteHandlerFunction>,
+): CristalyxApp {
   if (!httpServerIntance) {
     throw new Error("httpServerIntance is required");
   }
@@ -23,15 +19,14 @@ export function Cristalyx(
     request
       .on("data", (chunk) => body.push(chunk))
       .on("end", () => {
-        const requestBodyData = body.length > 0 ? Buffer.concat(body).toString("utf-8") : "";
+        const request_body_data = body.length > 0 ? Buffer.concat(body).toString("utf-8") : "";
 
-        const methodParsed: Method = request.method as Method;
+        const method_parsed = request.method as Method;
+        const url_parsed = request.url as string;
 
-        const urlParsed = new URL(`http://${process.env.HOST ?? "localhost"}${request.url}`);
+        const handlers = router.match(method_parsed, url_parsed);
 
-        const handlers = findHandlers(urlParsed.pathname, methodParsed);
-
-        if (!handlers) {
+        if (handlers.length === 0) {
           response.statusCode = 404;
           response.end("Not Found");
           return;
@@ -39,7 +34,7 @@ export function Cristalyx(
 
         execHandlers(
           handlers,
-          Object.assign(request, { body: requestBodyData }),
+          Object.assign(request, { body: request_body_data }),
           parseResponse(response),
         );
       });
@@ -50,12 +45,40 @@ export function Cristalyx(
     });
   });
 
-  return Object.assign(httpServerIntance, Router());
+  return Object.assign(httpServerIntance, {
+    get(path: string, ...handlers: RouteHandlerFunction[]) {
+      router.add("GET", path, ...handlers);
+    },
+    post(path: string, ...handlers: RouteHandlerFunction[]) {
+      router.add("POST", path, ...handlers);
+    },
+    put(path: string, ...handlers: RouteHandlerFunction[]) {
+      router.add("PUT", path, ...handlers);
+    },
+    delete(path: string, ...handlers: RouteHandlerFunction[]) {
+      router.add("DELETE", path, ...handlers);
+    },
+    patch(path: string, ...handlers: RouteHandlerFunction[]) {
+      router.add("PATCH", path, ...handlers);
+    },
+  });
 }
 
-export function parseResponse(response: http.ServerResponse) {
+export type CristalyxApp = Server & {
+  get: (path: string, ...handlers: RouteHandlerFunction[]) => void;
+
+  post: (path: string, ...handlers: RouteHandlerFunction[]) => void;
+
+  put: (path: string, ...handlers: RouteHandlerFunction[]) => void;
+
+  delete: (path: string, ...handlers: RouteHandlerFunction[]) => void;
+
+  patch: (path: string, ...handlers: RouteHandlerFunction[]) => void;
+};
+
+export function parseResponse(response: ServerResponse) {
   return Object.assign(response, {
-    status: (statusCode: number): http.ServerResponse<http.IncomingMessage> => {
+    status: (statusCode: number): ServerResponse<IncomingMessage> => {
       response.statusCode = statusCode;
       return response;
     },
