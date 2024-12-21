@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import type { IncomingMessage, Server, ServerResponse } from "node:http";
-import { execHandlers } from "./execHandlers";
 import type { Method, RouteHandlerFunction } from "./Router/handler";
 import type { Router } from "./Router/router";
+import { execHandlers } from "./execHandlers";
 
 export function Cristalyx(
   httpServerIntance: Server,

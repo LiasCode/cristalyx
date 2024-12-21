@@ -1,0 +1,14 @@
+{
+  "name": "cristalyx-example-basic",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsx ./server.ts"
+  },
+  "author": "LiasCode",
+  "devDependencies": {
+    "@types/node": "^20.12.11",
+    "tsx": "^4.19.2",
+    "typescript": "^5.4.5",
+    "zod": "^3.24.1"
+  }
+}

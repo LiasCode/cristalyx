@@ -1,23 +1,19 @@
 {
   "name": "cristalyx",
   "version": "1.0.0",
-  "description": "Cristalyx is a minimal and fast library that wrap http.createserver module for web server creation",
+  "description": "Cristalyx es una pequeña librería para crear servidores http eficientes y sencillos.",
   "main": "index.js",
   "scripts": {
     "build:lib": "tsc -p ./tsconfig.json",
-    "test:dev": "tsx --watch ./test/server.ts",
-    "test:start": "tsx ./test/server.ts",
+    "test": "",
     "format": "biome format --write",
     "lint": "biome lint --write && biome check --write",
     "check": "tsc --noEmit -p ./tsconfig.json"
   },
-  "keywords": [
-    "lib",
-    "http",
-    "server"
-  ],
+  "keywords": ["lib", "http", "server"],
   "author": "LiasCode",
   "license": "ISC",
+  "workspaces": ["./examples/*"],
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
     "@types/node": "^20.12.11",
