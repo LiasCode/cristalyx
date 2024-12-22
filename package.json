@@ -4,7 +4,7 @@
   "description": "Cristalyx es una pequeña librería para crear servidores http eficientes y sencillos.",
   "main": "index.js",
   "scripts": {
-    "build:lib": "tsc -p ./tsconfig.json",
+    "build": "tsc -p ./tsconfig.json",
     "test": "",
     "format": "biome format --write",
     "lint": "biome lint --write && biome check --write",
