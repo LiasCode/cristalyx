@@ -2,7 +2,7 @@ import fs from "node:fs";
 import type { IncomingMessage, Server, ServerResponse } from "node:http";
 import type { Method, RouteHandlerFunction } from "./Router/handler";
 import type { Router } from "./Router/router";
-import { execHandlers } from "./execHandlers";
+import { execute_route_handlers } from "./execHandlers";
 
 export function Cristalyx(
   httpServerIntance: Server,
@@ -32,7 +32,7 @@ export function Cristalyx(
           return;
         }
 
-        execHandlers(
+        execute_route_handlers(
           handlers,
           Object.assign(request, { body: request_body_data }),
           parseResponse(response),

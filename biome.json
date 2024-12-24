@@ -8,7 +8,7 @@
     "lineWidth": 100,
     "indentStyle": "space",
     "indentWidth": 2,
-    "lineEnding": "lf"
+    "lineEnding": "crlf"
   },
   "linter": {
     "enabled": true,
