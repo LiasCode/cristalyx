@@ -13,4 +13,3 @@ server.listen(PORT, () => {
 server.get("/", (_, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
-
