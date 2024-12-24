@@ -1,5 +1,4 @@
 import http from "node:http";
-import path from "node:path";
 import { Cristalyx, TreeRouter } from "../../lib";
 
 const PORT = 3000;
@@ -11,5 +10,7 @@ server.listen(PORT, () => {
 });
 
 server.get("/", (_, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.json({
+    Hello: "World",
+  });
 });
