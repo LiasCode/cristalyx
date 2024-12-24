@@ -1,2 +1,2 @@
-export { Cristalyx } from "./cristalyx";
+export { Cristalyx } from "./Cristalyx";
 export { LinearRouter, TreeRouter } from "./Router";

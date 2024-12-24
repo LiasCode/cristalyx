@@ -2,8 +2,36 @@ import fs from "node:fs";
 import type { IncomingMessage, Server, ServerResponse } from "node:http";
 import type { Method, RouteHandlerFunction } from "./Router/handler";
 import type { Router } from "./Router/router";
-import { execute_route_handlers } from "./execHandlers";
+import { execute_route_handlers } from "./execute_route_handlers";
 
+/**
+ * Initializes the Cristalyx application with the provided HTTP server instance and router.
+ *
+ * @param httpServerIntance - The HTTP server instance to attach the Cristalyx application to.
+ * @param router - The router instance to handle route matching and execution.
+ * @returns The Cristalyx application instance with HTTP methods (GET, POST, PUT, DELETE, PATCH) attached.
+ *
+ * @throws {Error} If the `httpServerIntance` is not provided.
+ *
+ * @example
+ * ```typescript
+ * import http from "node:http";
+ * import path from "node:path";
+ * import { Cristalyx, TreeRouter } from "cristalyx";
+ *
+ * const PORT = 3000;
+ *
+ * const server = Cristalyx(http.createServer(), new TreeRouter(["GET", "POST"]));
+ *
+ * server.listen(PORT, () => {
+ *   console.log(`Server listen on http://localhost:${PORT}`);
+ * });
+ *
+ * server.get("/", (_, res) => {
+ *   res.sendFile(path.join(__dirname, "public", "index.html"));
+ * });
+ * ```
+ */
 export function Cristalyx(
   httpServerIntance: Server,
   router: Router<RouteHandlerFunction>,
