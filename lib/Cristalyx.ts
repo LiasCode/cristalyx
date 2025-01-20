@@ -27,7 +27,7 @@ import { execute_route_handlers } from "./execute_route_handlers";
  *   console.log(`Server listen on http://localhost:${PORT}`);
  * });
  *
- * server.get("/", (_, res) => {
+ * server.get("/", async (_, res) => {
  *   res.sendFile(path.join(__dirname, "public", "index.html"));
  * });
  * ```
@@ -64,7 +64,7 @@ export function Cristalyx(
           handlers,
           Object.assign(request, { body: request_body_data }),
           parseResponse(response),
-        );
+        ).catch(console.error);
       });
 
     // ERRORS

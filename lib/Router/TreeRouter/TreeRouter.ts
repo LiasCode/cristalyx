@@ -87,7 +87,7 @@ export class TreeRouter<RouteHandler> implements Router<RouteHandler> {
       return;
     }
 
-    if (next_steps.length === 0) {
+    if (next_steps.length === 0 || !next_steps[0]) {
       current_node.value.handlers.push(...handlers);
       return;
     }

@@ -11,17 +11,17 @@ import type { Request, Response, RouteHandlerFunction } from "./Router/handler";
  * @param req - The native request object.
  * @param res - The native response object.
  */
-export function execute_route_handlers(
+export async function execute_route_handlers(
   handlers: RouteHandlerFunction[],
   req: Request,
   res: Response,
-): void {
+): Promise<void> {
   let next = false;
 
   for (const handler of handlers) {
     next = false;
 
-    handler(req, res, () => {
+    await handler(req, res, () => {
       next = true;
     });
 

@@ -11,6 +11,6 @@ export type Response = http.ServerResponse & {
   text: (data: any) => void;
 };
 
-export type RouteHandlerFunction = (req: Request, res: Response, next: () => void) => any;
+export type RouteHandlerFunction = (req: Request, res: Response, next: () => void) => Promise<any>;
 
 export type Method = string;
