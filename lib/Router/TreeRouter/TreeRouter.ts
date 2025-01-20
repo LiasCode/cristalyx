@@ -7,7 +7,7 @@ export class TreeRouter<RouteHandler> implements Router<RouteHandler> {
 
   constructor(methods?: Method[]) {
     if (methods) {
-      this.methods = methods;
+      this.methods = [...this.methods, ...methods];
     }
     for (const m of this.methods) {
       this.routes[m] = this.generate_base_node();
