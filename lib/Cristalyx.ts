@@ -1,5 +1,7 @@
 import fs from "node:fs";
+import http from "node:http";
 import type { IncomingMessage, Server, ServerResponse } from "node:http";
+import { LinearRouter } from "./Router";
 import type { Method, RouteHandlerFunction } from "./Router/handler";
 import type { Router } from "./Router/router";
 import { execute_route_handlers } from "./execute_route_handlers";
@@ -15,13 +17,12 @@ import { execute_route_handlers } from "./execute_route_handlers";
  *
  * @example
  * ```typescript
- * import http from "node:http";
  * import path from "node:path";
- * import { Cristalyx, TreeRouter } from "cristalyx";
+ * import { Cristalyx } from "cristalyx";
  *
  * const PORT = 3000;
  *
- * const server = Cristalyx(http.createServer(), new TreeRouter(["GET", "POST"]));
+ * const server = Cristalyx();
  *
  * server.listen(PORT, () => {
  *   console.log(`Server listen on http://localhost:${PORT}`);
@@ -33,11 +34,21 @@ import { execute_route_handlers } from "./execute_route_handlers";
  * ```
  */
 export function Cristalyx(
-  httpServerIntance: Server,
-  router: Router<RouteHandlerFunction>,
+  httpServerIntance: Server = http.createServer(),
+  router: Router<RouteHandlerFunction> = new LinearRouter([
+    "GET",
+    "POST",
+    "PUT",
+    "DELETE",
+    "PATCH",
+  ]),
 ): CristalyxApp {
   if (!httpServerIntance) {
     throw new Error("httpServerIntance is required");
+  }
+
+  if (!router) {
+    throw new Error("router is required");
   }
 
   // Evento Request:
