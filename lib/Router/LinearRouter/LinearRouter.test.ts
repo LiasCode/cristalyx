@@ -1,19 +1,43 @@
+import { describe, expect, test } from "vitest";
 import { LinearRouter } from "./LinearRouter";
 
-const linearRouter = new LinearRouter<string>(["GET", "POST"]);
+describe("LinearRouter", () => {
+  const linearRouter = new LinearRouter<string>(["GET", "POST"]);
 
-linearRouter.add("GET", "/", "h-1", "h-2");
+  test("should initialize with methods", () => {
+    expect(linearRouter.methods).toEqual(["ALL", "GET", "POST"]);
+  });
 
-linearRouter.add("GET", "/api", "h-3", "h-4");
+  linearRouter.add("GET", "/", "h-1", "h-2");
 
-linearRouter.add("GET", "/static", "h-5");
+  test("should add handlers for GET /", () => {
+    const handlers = linearRouter.match("GET", "/");
+    expect(handlers).toEqual(["h-1", "h-2"]);
+  });
 
-linearRouter.add("GET", "/api/health", "h-6", "h-7");
+  linearRouter.add("POST", "/test", "h-3");
 
-linearRouter.add("POST", "/api/user", "h-8", "h-9");
+  test("should add handlers for POST /test", () => {
+    const handlers = linearRouter.match("POST", "/test");
+    expect(handlers).toEqual(["h-3"]);
+  });
 
-const match_result = linearRouter.match("GET", "/api/health");
+  test("should return empty array for unmatched route", () => {
+    const handlers = linearRouter.match("GET", "/unmatched");
+    expect(handlers).toEqual([]);
+  });
 
-console.log(linearRouter.toString());
+  test("should throw when a method is not supported", () => {
+    expect(() => linearRouter.match("DELETE", "/")).toThrowError();
+  });
 
-console.log(JSON.stringify(match_result, null, 2));
+  linearRouter.add("POST", "/deeply/nested/path", "h-9");
+  linearRouter.add("POST", "/deeply/nested/path/most/deeper", "h-10");
+
+  test("should add deeply nested paths for POST /test", () => {
+    const handlers1 = linearRouter.match("POST", "/deeply/nested/path");
+    const handlers2 = linearRouter.match("POST", "/deeply/nested/path/most/deeper");
+    expect(handlers1).toEqual(["h-9"]);
+    expect(handlers2).toEqual(["h-10"]);
+  });
+});

@@ -48,13 +48,11 @@ export class TreeRouter<RouteHandler> implements Router<RouteHandler> {
     if (path_steps.length === 0) throw new Error("path_steps can't be empty'");
 
     let current_node: TreeNode<RouteHandler> = start_node;
-    // const handlers: RouteHandler[] = [...current_node.value.handlers];
 
     for (const p of path_steps) {
       for (const n of current_node.children) {
         if (n.value.key === p) {
           current_node = n;
-          // handlers.push(...current_node.value.handlers);
           break;
         }
       }
