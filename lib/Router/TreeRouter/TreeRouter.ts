@@ -15,10 +15,7 @@ export class TreeRouter<RouteHandler> implements Router<RouteHandler> {
   }
 
   add(method: string, path: string, ...handlers: RouteHandler[]): void {
-    const path_steps = [
-      "/",
-      ...new URL(path, "http://base.com").pathname.split("/").filter((p) => p !== ""),
-    ];
+    const path_steps = ["/", ...new URL(path, "http://base.com").pathname.split("/").filter((p) => p !== "")];
 
     if (!this.routes[method]) {
       throw new Error(`[TreeRouter:add] method ${method} not supported, add it to the constructor`);
@@ -28,15 +25,10 @@ export class TreeRouter<RouteHandler> implements Router<RouteHandler> {
   }
 
   match(method: string, path: string): RouteHandler[] {
-    const path_steps = [
-      "/",
-      ...new URL(path, "http://base.com").pathname.split("/").filter((p) => p !== ""),
-    ];
+    const path_steps = ["/", ...new URL(path, "http://base.com").pathname.split("/").filter((p) => p !== "")];
 
     if (!this.routes[method]) {
-      throw new Error(
-        `[TreeRouter:match] method ${method} not supported, add it to the constructor`,
-      );
+      throw new Error(`[TreeRouter:match] method ${method} not supported, add it to the constructor`);
     }
 
     return this.find_node_handlers(path_steps, this.routes[method]);
@@ -52,10 +44,7 @@ export class TreeRouter<RouteHandler> implements Router<RouteHandler> {
     };
   }
 
-  private find_node_handlers(
-    path_steps: string[],
-    start_node: TreeNode<RouteHandler>,
-  ): RouteHandler[] {
+  private find_node_handlers(path_steps: string[], start_node: TreeNode<RouteHandler>): RouteHandler[] {
     if (path_steps.length === 0) throw new Error("path_steps can't be empty'");
 
     let current_node: TreeNode<RouteHandler> = start_node;
@@ -74,11 +63,7 @@ export class TreeRouter<RouteHandler> implements Router<RouteHandler> {
     return current_node.value.handlers;
   }
 
-  private insert(
-    path_steps: string[],
-    current_node: TreeNode<RouteHandler>,
-    handlers: RouteHandler[],
-  ): void {
+  private insert(path_steps: string[], current_node: TreeNode<RouteHandler>, handlers: RouteHandler[]): void {
     if (path_steps.length === 0) throw new Error("path_steps can't be empty'");
 
     const [current_step, ...next_steps] = path_steps;

@@ -14,7 +14,7 @@ import type { Request, Response, RouteHandlerFunction } from "./Router/handler";
 export async function execute_route_handlers(
   handlers: RouteHandlerFunction[],
   req: Request,
-  res: Response,
+  res: Response
 ): Promise<void> {
   let next = false;
 

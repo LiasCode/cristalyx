@@ -1,24 +1,46 @@
 {
   "name": "cristalyx",
   "version": "1.0.0",
-  "description": "Cristalyx es una pequeña librería para crear servidores http eficientes y sencillos.",
+  "description": "Cristalyx is a small library for creating efficient and simple HTTP servers.",
   "main": "index.js",
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
     "test": "",
-    "format": "biome format --write",
-    "lint": "biome lint --write && biome check --write",
-    "check": "tsc --noEmit -p ./tsconfig.json"
+    "lint": "biome lint . --fix --unsafe",
+    "check": "tsc --noEmit -p ./tsconfig.json",
+    "format": "prettier --write --cache \"./lib\" \"./examples\" ",
+    "postinstall": "simple-git-hooks"
   },
-  "keywords": ["lib", "http", "server"],
-  "author": "LiasCode",
-  "license": "ISC",
-  "workspaces": ["./examples/*"],
+  "keywords": [
+    "cristalyx",
+    "lib",
+    "http",
+    "server",
+    "express",
+    "http",
+    "efficient",
+    "small"
+  ],
+  "author": {
+    "name": "LiasCode",
+    "email": "liascode.dev@gmail.com",
+    "url": "https://lias-code.pages.dev"
+  },
+  "license": "MIT",
+  "workspaces": [
+    "./examples/*"
+  ],
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
     "@types/node": "^20.17.57",
+    "prettier": "^3.5.3",
+    "prettier-plugin-organize-imports": "^4.1.0",
+    "simple-git-hooks": "^2.13.0",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
     "zod": "^3.25.51"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npm run lint && npm run format"
   }
 }

@@ -1,33 +1,32 @@
 ### Cristalyx
 
-`Cristalyx` es una pequeña librería para crear servidores http eficientes y sencillos.
+`Cristalyx` is a small library for creating efficient and simple HTTP servers.
 
 ##### DISCLAIMER
 
-> - Esta librería solo tiene el fin de estudiar y profundizar en el funcionamiento de frameworks de servidores web
-> - No pretende ser sustitución y menos aún usada en produccion.
-> - Las características, funcionalidades y diseño de la api podrán cambiar libremente y sin retrocompatibilidad.
-> - Se irán añadiendo funcionalidades, siempre con el objetivo de que tenga una api sencilla y se mantenga el rendimiento
+> - This library is solely for the purpose of studying and delving into the operation of web server frameworks.
+> - It is not intended as a substitute for, and even less for use in, production.
+> - The features, functionalities, and API design may change freely and without backward compatibility.
+> - Functionalities will be added gradually, always with the goal of maintaining a simple API and preserving performance.
 
-#### Objetivos:
+#### Goals:
 
-- Api sencilla similar a express
-- Totalmente tipado con `Typescript`
-- Permitir seleccionar entre distintos tipos de enrutadores como: `TreeRouter` y `LinearRouter`
-- Añadir funcionalidades manteniendo el rendimiento
+- Simple API similar to Express
+- Fully typed with `Typescript`
+- Allow selection between different router types, such as `TreeRouter` and `LinearRouter`
+- Add functionalities while maintaining performance
 
-#### Ruta de desarrollo
+#### Development Roadmap
 
-- [X] Implementar enrutador `TreeRouter`
-- [X] Implementar enrutador `LinearRouter`
-- [ ] Enrutador modular
-- [ ] Integrar un validador de schemas para las request
-- [ ] Integrar middleware para servir archivos estáticos
-- [ ] Integrar middleware para la subida de archivos
-- [ ] Añadir testing
+- [X] Implement `TreeRouter`
+- [X] Implement `LinearRouter`
+- [ ] Modular router
+- [ ] Integrate a schema validator for requests
+- [ ] Integrate middleware for serving static files
+- [ ] Integrate middleware for file uploads
+- [ ] Add testing
 
-
-##### Inspiraciones:
+##### Inspirations:
 
 - [`Express`](https://expressjs.com/)
 - [`Hono`](https://hono.dev/)

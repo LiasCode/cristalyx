@@ -1,6 +1,6 @@
 import fs from "node:fs";
-import http from "node:http";
 import type { IncomingMessage, Server, ServerResponse } from "node:http";
+import http from "node:http";
 import { LinearRouter } from "./Router";
 import type { Method, RouteHandlerFunction } from "./Router/handler";
 import type { Router } from "./Router/router";
@@ -35,13 +35,7 @@ import { execute_route_handlers } from "./execute_route_handlers";
  */
 export function Cristalyx(
   httpServerIntance: Server = http.createServer(),
-  router: Router<RouteHandlerFunction> = new LinearRouter([
-    "GET",
-    "POST",
-    "PUT",
-    "DELETE",
-    "PATCH",
-  ]),
+  router: Router<RouteHandlerFunction> = new LinearRouter(["GET", "POST", "PUT", "DELETE", "PATCH"])
 ): CristalyxApp {
   if (!httpServerIntance) {
     throw new Error("httpServerIntance is required");
@@ -74,7 +68,7 @@ export function Cristalyx(
         execute_route_handlers(
           handlers,
           Object.assign(request, { body: request_body_data }),
-          parseResponse(response),
+          parseResponse(response)
         ).catch(console.error);
       });
 

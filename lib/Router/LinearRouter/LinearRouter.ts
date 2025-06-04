@@ -18,9 +18,7 @@ export class LinearRouter<RouteHandler> implements Router<RouteHandler> {
     const path_parsed = path;
 
     if (!this.routes[method]) {
-      throw new Error(
-        `[LinearRouter:add], method ${method} not supported, add it to the constructor`,
-      );
+      throw new Error(`[LinearRouter:add], method ${method} not supported, add it to the constructor`);
     }
 
     for (const n of this.routes[method]) {
@@ -40,9 +38,7 @@ export class LinearRouter<RouteHandler> implements Router<RouteHandler> {
     const path_parsed = path;
 
     if (!this.routes[method]) {
-      throw new Error(
-        `[LinearRouter:match], method ${method} not supported, add it to the constructor`,
-      );
+      throw new Error(`[LinearRouter:match], method ${method} not supported, add it to the constructor`);
     }
 
     for (const n of this.routes[method]) {
