@@ -5,10 +5,10 @@ export type Request = http.IncomingMessage & {
 };
 
 export type Response = http.ServerResponse & {
-  status: (statusCode: number) => void;
-  sendFile: (filePath: string) => void;
-  json: (data: any) => void;
-  text: (data: any) => void;
+  status(statusCode: number): void;
+  sendFile(filePath: string): void;
+  json(data: any): void;
+  text(data: any): void;
 };
 
 export type RouteHandlerFunction = (req: Request, res: Response, next: () => void) => Promise<any>;

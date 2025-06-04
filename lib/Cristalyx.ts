@@ -6,6 +6,18 @@ import type { Method, RouteHandlerFunction } from "./Router/handler";
 import type { Router } from "./Router/router";
 import { execute_route_handlers } from "./execute_route_handlers";
 
+export type CristalyxApp = Server & {
+  get(path: string, ...handlers: RouteHandlerFunction[]): void;
+
+  post(path: string, ...handlers: RouteHandlerFunction[]): void;
+
+  put(path: string, ...handlers: RouteHandlerFunction[]): void;
+
+  delete(path: string, ...handlers: RouteHandlerFunction[]): void;
+
+  patch(path: string, ...handlers: RouteHandlerFunction[]): void;
+};
+
 /**
  * Initializes the Cristalyx application with the provided HTTP server instance and router.
  *
@@ -78,6 +90,7 @@ export function Cristalyx(
     });
   });
 
+  // Attach Router Methods
   return Object.assign(httpServerIntance, {
     get(path: string, ...handlers: RouteHandlerFunction[]) {
       router.add("GET", path, ...handlers);
@@ -97,33 +110,21 @@ export function Cristalyx(
   });
 }
 
-export type CristalyxApp = Server & {
-  get: (path: string, ...handlers: RouteHandlerFunction[]) => void;
-
-  post: (path: string, ...handlers: RouteHandlerFunction[]) => void;
-
-  put: (path: string, ...handlers: RouteHandlerFunction[]) => void;
-
-  delete: (path: string, ...handlers: RouteHandlerFunction[]) => void;
-
-  patch: (path: string, ...handlers: RouteHandlerFunction[]) => void;
-};
-
 export function parseResponse(response: ServerResponse) {
   return Object.assign(response, {
-    status: (statusCode: number): ServerResponse<IncomingMessage> => {
+    status(statusCode: number): ServerResponse<IncomingMessage> {
       response.statusCode = statusCode;
       return response;
     },
-    sendFile: (filePath: string): void => {
+    sendFile(filePath: string): void {
       response.setHeader("Content-Type", "text/html");
       fs.createReadStream(filePath).pipe(response);
     },
-    json: (data: any): void => {
+    json(data: any): void {
       response.setHeader("Content-Type", "application/json");
       response.end(JSON.stringify(data));
     },
-    text: (data: any): void => {
+    text(data: any): void {
       response.setHeader("Content-Type", "text/plain");
       response.end(data);
     },
